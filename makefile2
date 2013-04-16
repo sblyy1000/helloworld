@@ -1,0 +1,16 @@
+#VPATH=`xml2-config --cflags`
+target=myhttpd
+object=config.o decode.o server.o listen.o log.o network.o request.o response.o unix_sock.o watch.o work.o
+CFLAGS=-I ./ `xml2-config --cflags`
+libs=-L ./ `xml2-config --libs` -lpthread
+$(target): $(object)
+	gcc -o myhttpd $(object) $(libs)
+#server.o:server.c
+#	gcc -o server.o -MM server.c
+#config.o:config.c
+#	gcc -o config.o config.c $(cflag) $(lib)
+
+.PHONY:clean
+clean:
+	-rm *.o
+	-rm $(target)
